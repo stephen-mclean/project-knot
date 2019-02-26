@@ -58,7 +58,7 @@ export default {
       },
       button: {
         size: "0.875rem",
-        weight: "600",
+        weight: "500",
         letterspacing: "1.25px"
       },
       caption: {
