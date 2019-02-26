@@ -1,7 +1,8 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faChevronRight,
-  faChevronDown
+  faChevronDown,
+  faCheck
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faChevronRight, faChevronDown);
+library.add(faChevronRight, faChevronDown, faCheck);
