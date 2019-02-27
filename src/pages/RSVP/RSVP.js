@@ -2,13 +2,19 @@ import React, { Fragment, Component } from "react";
 import PageWithNav from "../helpers/PageWithNav";
 import { dbRef } from "../../firebase";
 import NameForm from "./form/NameForm";
+import GuestsForm from "./form/GuestsForm";
+import Confirmation from "./confirmation/Confirmation";
 import { HOME } from "../../routes/routes";
 
 class RSVP extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { chosenParty: null, allParties: null };
+    this.state = {
+      chosenParty: null,
+      allParties: null,
+      showConfirmation: false
+    };
 
     this.loadParties();
   }
@@ -43,7 +49,6 @@ class RSVP extends Component {
 
     const nameToFind = name.toLowerCase();
     const foundParty = allParties.find(party => {
-      console.log("searching party", party);
       return party.guests.find(guest => {
         const guestsName = guest.name.toLowerCase();
 
@@ -51,7 +56,8 @@ class RSVP extends Component {
       });
     });
 
-    console.log("found party", foundParty);
+    // TODO: Show error if party not found
+    this.setState({ chosenParty: foundParty });
   };
 
   onNameFormCancel = () => {
@@ -74,11 +80,48 @@ class RSVP extends Component {
     return !chosenParty;
   };
 
+  shouldRenderGuestsForm = () => {
+    const { chosenParty } = this.state;
+
+    return !!chosenParty;
+  };
+
+  onUpdateGuests = updatedGuests => {
+    console.log("guests updated", updatedGuests);
+
+    // update db & show confirmation
+    this.setState(prevState => ({
+      chosenParty: {
+        ...prevState.chosenParty,
+        guests: updatedGuests
+      },
+      showConfirmation: true
+    }));
+  };
+
+  renderGuestsForm = () => {
+    const { chosenParty } = this.state;
+    return (
+      <GuestsForm
+        guests={chosenParty.guests}
+        updateGuests={this.onUpdateGuests}
+      />
+    );
+  };
+
+  renderConfirmationScreen() {
+    const { chosenParty } = this.state;
+    return <Confirmation guests={chosenParty.guests} />;
+  }
+
   render() {
+    const { showConfirmation } = this.state;
     return (
       <PageWithNav>
         <Fragment>
           {this.shouldRenderNameForm() && this.renderNameForm()}
+          {this.shouldRenderGuestsForm() && this.renderGuestsForm()}
+          {showConfirmation && this.renderConfirmationScreen()}
         </Fragment>
       </PageWithNav>
     );
