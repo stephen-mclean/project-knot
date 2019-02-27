@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Themes from "./theme/Theme";
 import { GlobalStyle } from "./theme/GlobalStyle";
 import { HOME, RSVP_ROUTE, WEDDING_DAY, AFTER_PARTY } from "./routes/routes";
+import "./firebase";
 
 class App extends Component {
   render() {
