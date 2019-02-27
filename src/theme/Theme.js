@@ -16,6 +16,11 @@ export default {
       }
     },
     fonts: {
+      h2: {
+        size: "3.75rem",
+        weight: "400",
+        letterspacing: "-0.5px"
+      },
       h3: {
         size: "3rem",
         weight: "400",

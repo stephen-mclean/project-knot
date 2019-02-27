@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const H2 = styled.h2`
+  font-size: ${props => props.theme.fonts.h2.size};
+  font-weight: ${props => props.theme.fonts.h2.weight};
+  letter-spacing: ${props => props.theme.fonts.h2.letterspacing};
+  color: ${props => props.theme.colors.foreground.default};
+  font-family: "Cookie", cursive;
+`;
+
 export const H3 = styled.h3`
   font-size: ${props => props.theme.fonts.h3.size};
   font-weight: ${props => props.theme.fonts.h3.weight};
