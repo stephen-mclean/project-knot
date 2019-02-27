@@ -1,26 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react";
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Themes from "./theme/Theme";
+import { GlobalStyle } from "./theme/GlobalStyle";
+import { HOME, RSVP_ROUTE, WEDDING_DAY, AFTER_PARTY } from "./routes/routes";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Router>
+        <ThemeProvider theme={Themes.main}>
+          <Fragment>
+            <Route exact path={HOME.path} component={HOME.component} />
+            <Route
+              exact
+              path={RSVP_ROUTE.path}
+              component={RSVP_ROUTE.component}
+            />
+            <Route
+              exact
+              path={WEDDING_DAY.path}
+              component={WEDDING_DAY.component}
+            />
+            <Route
+              exact
+              path={AFTER_PARTY.path}
+              component={AFTER_PARTY.component}
+            />
+            <GlobalStyle />
+          </Fragment>
+        </ThemeProvider>
+      </Router>
     );
   }
 }
