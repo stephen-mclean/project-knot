@@ -81,9 +81,9 @@ class RSVP extends Component {
   };
 
   shouldRenderGuestsForm = () => {
-    const { chosenParty } = this.state;
+    const { chosenParty, showConfirmation } = this.state;
 
-    return !!chosenParty;
+    return !!chosenParty && !showConfirmation;
   };
 
   onUpdateGuests = updatedGuests => {

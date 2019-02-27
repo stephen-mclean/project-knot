@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { H5, S1 } from "../../../components/Fonts/Fonts";
+import GuestDetails from "./GuestDetails";
 
 const HeadingContainer = styled.section`
   margin-bottom: 1rem;
@@ -22,5 +23,8 @@ export default ({ guests }) => (
         Thank you for responding. We hope you have a wonderful time.
       </SubHeading>
     </HeadingContainer>
+    {guests.map(guest => (
+      <GuestDetails key={guest.name} guest={guest} />
+    ))}
   </Fragment>
 );
