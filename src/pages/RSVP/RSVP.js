@@ -2,6 +2,7 @@ import React, { Fragment, Component } from "react";
 import { AlertContainer, alerts } from "react-very-simple-alerts";
 import AlertTemplate from "../../components/Alert/DefaultAlertTemplate";
 import AlertCloseButton from "../../components/Alert/DefaultAlertCloseBtn";
+import LoadingIndicator from "../../components/LoadingIndicator/LoadingIndicator";
 import PageWithNav from "../helpers/PageWithNav";
 import { dbRef } from "../../firebase";
 import NameForm from "./form/NameForm";
@@ -102,15 +103,20 @@ class RSVP extends Component {
   };
 
   shouldRenderNameForm = () => {
-    const { chosenParty } = this.state;
+    const { chosenParty, isLoading } = this.state;
 
-    return !chosenParty;
+    return !chosenParty && !isLoading;
   };
 
   shouldRenderGuestsForm = () => {
-    const { chosenParty, showConfirmation } = this.state;
+    const { chosenParty, showConfirmation, isLoading } = this.state;
 
-    return !!chosenParty && !showConfirmation;
+    return !!chosenParty && !showConfirmation && !isLoading;
+  };
+
+  shouldRenderConfirmation = () => {
+    const { showConfirmation, isLoading } = this.state;
+    return showConfirmation && !isLoading;
   };
 
   onUpdateGuests = updatedGuests => {
@@ -156,11 +162,7 @@ class RSVP extends Component {
   }
 
   render() {
-    const { showConfirmation, isLoading } = this.state;
-    if (isLoading) {
-      return <Fragment>Loading...</Fragment>;
-    }
-
+    const { isLoading } = this.state;
     return (
       <PageWithNav>
         <Fragment>
@@ -168,9 +170,10 @@ class RSVP extends Component {
             template={AlertTemplate}
             closeButton={AlertCloseButton}
           />
+          {isLoading && <LoadingIndicator />}
           {this.shouldRenderNameForm() && this.renderNameForm()}
           {this.shouldRenderGuestsForm() && this.renderGuestsForm()}
-          {showConfirmation && this.renderConfirmationScreen()}
+          {this.shouldRenderConfirmation() && this.renderConfirmationScreen()}
         </Fragment>
       </PageWithNav>
     );
