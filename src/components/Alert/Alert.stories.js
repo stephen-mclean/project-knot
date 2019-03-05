@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import { storiesOf } from "@storybook/react";
 import StoryContainer from "../StorybookContainer/StorybookContainer";
-import { AlertContainer, alerts } from "react-simple-alerts";
+import { AlertContainer, alerts } from "react-very-simple-alerts";
 import CloseBtn from "./DefaultAlertCloseBtn";
 import Template from "./DefaultAlertTemplate";
-import "react-simple-alerts/build/main.css";
 
 const stories = storiesOf("Components", module);
 
@@ -15,7 +14,13 @@ stories.add("Alert", () => (
     <Fragment>
       <AlertContainer template={Template} closeButton={CloseBtn} />
 
-      <button onClick={() => alerts.show("Default")}>Default</button>
+      <button
+        onClick={() =>
+          alerts.show("Default", { onClose: id => console.log(`Closed ${id}`) })
+        }
+      >
+        Default
+      </button>
       <button onClick={() => alerts.showSuccess("Success")}>Success</button>
       <button onClick={() => alerts.showWarning("Warning")}>Warning</button>
       <button onClick={() => alerts.showError("Error")}>Error</button>

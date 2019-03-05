@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ALERT_TYPES } from "react-simple-alerts";
+import { ALERT_TYPES } from "react-very-simple-alerts";
 
 const getBackgroundColor = (theme, alertType) => {
   switch (alertType) {
