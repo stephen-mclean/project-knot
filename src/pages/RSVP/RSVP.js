@@ -1,4 +1,7 @@
 import React, { Fragment, Component } from "react";
+import { AlertContainer, alerts } from "react-very-simple-alerts";
+import AlertTemplate from "../../components/Alert/DefaultAlertTemplate";
+import AlertCloseButton from "../../components/Alert/DefaultAlertCloseBtn";
 import PageWithNav from "../helpers/PageWithNav";
 import { dbRef } from "../../firebase";
 import NameForm from "./form/NameForm";
@@ -58,8 +61,18 @@ class RSVP extends Component {
       });
     });
 
-    // TODO: Show error if party not found
-    this.setState({ chosenParty: foundParty });
+    const { partyNotFoundAlert } = this.state;
+    if (!foundParty && !partyNotFoundAlert) {
+      const notFoundAlert = alerts.showError(
+        "We could not find your invite. Please check your spelling and try again."
+      );
+      this.setState({ partyNotFoundAlert: notFoundAlert });
+    } else {
+      if (partyNotFoundAlert) {
+        alerts.close(partyNotFoundAlert);
+      }
+      this.setState({ chosenParty: foundParty, partyNotFoundAlert: null });
+    }
   };
 
   onNameFormCancel = () => {
@@ -121,6 +134,10 @@ class RSVP extends Component {
     return (
       <PageWithNav>
         <Fragment>
+          <AlertContainer
+            template={AlertTemplate}
+            closeButton={AlertCloseButton}
+          />
           {this.shouldRenderNameForm() && this.renderNameForm()}
           {this.shouldRenderGuestsForm() && this.renderGuestsForm()}
           {showConfirmation && this.renderConfirmationScreen()}

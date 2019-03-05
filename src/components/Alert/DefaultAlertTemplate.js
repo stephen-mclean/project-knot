@@ -39,6 +39,7 @@ const Container = styled.div`
   background-color: ${props =>
     getBackgroundColor(props.theme, props.alertType)};
   color: ${props => getFontColor(props.theme, props.alertType)};
+  margin-bottom: 1rem;
 `;
 
 export default ({ children, ...props }) => (

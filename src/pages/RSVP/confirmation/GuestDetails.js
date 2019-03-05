@@ -28,7 +28,7 @@ export default ({ guest }) => (
   <GuestContainer>
     <GuestName>{guest.name}</GuestName>
     <AnswerContainer>
-      <B1>Is attending?</B1>
+      <B1>Is attending wedding day?</B1>
       <AnswerText>{guest.isAttending}</AnswerText>
     </AnswerContainer>
 
