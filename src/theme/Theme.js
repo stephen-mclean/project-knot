@@ -13,6 +13,18 @@ export default {
         tertiary: "#738F99",
         quaternary: "#B8C7CC",
         quintenary: "#DAE3E5"
+      },
+      danger: {
+        default: "#E15554",
+        dark: "#801616",
+        light: "#FF9A99",
+        verylight: "#FFCCCC"
+      },
+      warning: {
+        default: "#E1BC29",
+        dark: "#997A00",
+        light: "#FFDF61",
+        verylight: "#FFF2BF"
       }
     },
     fonts: {
