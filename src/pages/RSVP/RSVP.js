@@ -16,7 +16,8 @@ class RSVP extends Component {
     this.state = {
       chosenParty: null,
       allParties: null,
-      showConfirmation: false
+      showConfirmation: false,
+      isLoading: false
     };
 
     this.loadParties();
@@ -24,6 +25,8 @@ class RSVP extends Component {
 
   loadParties = () => {
     console.log("load parties");
+
+    this.setState({ isLoading: true });
 
     const partiesRef = dbRef.ref("parties");
     partiesRef.once("value", snapshot => {
@@ -38,7 +41,8 @@ class RSVP extends Component {
 
       console.log("parties loaded");
       this.setState({
-        allParties: parties
+        allParties: parties,
+        isLoading: false
       });
     });
   };
@@ -104,14 +108,28 @@ class RSVP extends Component {
   onUpdateGuests = updatedGuests => {
     console.log("guests updated", updatedGuests);
 
-    // update db & show confirmation
-    this.setState(prevState => ({
-      chosenParty: {
-        ...prevState.chosenParty,
-        guests: updatedGuests
-      },
-      showConfirmation: true
-    }));
+    const currentParty = this.state.chosenParty;
+    const updatedParty = {
+      ...currentParty,
+      guests: updatedGuests,
+      hasResponded: true
+    };
+
+    this.setState({ isLoading: true });
+
+    const partyRef = dbRef.ref(`parties/${updatedParty.id}`);
+    partyRef.set(updatedParty, error => {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log("PARTY UPDATED!!");
+        this.setState({
+          chosenParty: updatedParty,
+          showConfirmation: true,
+          isLoading: false
+        });
+      }
+    });
   };
 
   renderGuestsForm = () => {
@@ -130,7 +148,11 @@ class RSVP extends Component {
   }
 
   render() {
-    const { showConfirmation } = this.state;
+    const { showConfirmation, isLoading } = this.state;
+    if (isLoading) {
+      return <Fragment>Loading...</Fragment>;
+    }
+
     return (
       <PageWithNav>
         <Fragment>
