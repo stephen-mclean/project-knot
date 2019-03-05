@@ -24,6 +24,7 @@ class RSVP extends Component {
 
     const partiesRef = dbRef.ref("parties");
     partiesRef.once("value", snapshot => {
+      console.log("here");
       const parties = [];
       snapshot.forEach(party => {
         parties.push({
@@ -32,6 +33,7 @@ class RSVP extends Component {
         });
       });
 
+      console.log("parties loaded");
       this.setState({
         allParties: parties
       });

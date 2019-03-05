@@ -32,14 +32,16 @@ export default ({ guest }) => (
       <AnswerText>{guest.isAttending}</AnswerText>
     </AnswerContainer>
 
+    {guest.isAttending && guest.isAttending === "Yes" && (
+      <AnswerContainer>
+        <B1>Meal Choice</B1>
+        <AnswerText>{guest.meal}</AnswerText>
+      </AnswerContainer>
+    )}
+
     <AnswerContainer>
       <B1>Is attending after party?</B1>
       <AnswerText>{guest.isAttendingAfterParty}</AnswerText>
-    </AnswerContainer>
-
-    <AnswerContainer>
-      <B1>Meal Choice</B1>
-      <AnswerText>{guest.meal}</AnswerText>
     </AnswerContainer>
   </GuestContainer>
 );
