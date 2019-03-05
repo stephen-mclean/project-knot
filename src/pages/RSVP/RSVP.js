@@ -19,7 +19,9 @@ class RSVP extends Component {
       showConfirmation: false,
       isLoading: false
     };
+  }
 
+  componentDidMount() {
     this.loadParties();
   }
 
@@ -71,6 +73,12 @@ class RSVP extends Component {
         "We could not find your invite. Please check your spelling and try again."
       );
       this.setState({ partyNotFoundAlert: notFoundAlert });
+    } else if (foundParty && foundParty.hasResponded) {
+      // Already RSVP'd, show confirmation
+      this.setState({ chosenParty: foundParty, showConfirmation: true });
+      alerts.showSuccess(
+        "You have already responded. Please find your details below."
+      );
     } else {
       if (partyNotFoundAlert) {
         alerts.close(partyNotFoundAlert);
