@@ -27,27 +27,30 @@ class RSVP extends Component {
   }
 
   loadParties = () => {
-    console.log("load parties");
-
     this.setState({ isLoading: true });
 
     const partiesRef = dbRef.ref("parties");
-    partiesRef.once("value", snapshot => {
-      console.log("here");
-      const parties = [];
-      snapshot.forEach(party => {
-        parties.push({
-          id: party.key,
-          ...party.val()
+    partiesRef.once(
+      "value",
+      snapshot => {
+        const parties = [];
+        snapshot.forEach(party => {
+          parties.push({
+            id: party.key,
+            ...party.val()
+          });
         });
-      });
 
-      console.log("parties loaded");
-      this.setState({
-        allParties: parties,
-        isLoading: false
-      });
-    });
+        this.setState({
+          allParties: parties,
+          isLoading: false
+        });
+      },
+      error => {
+        console.error(error);
+        // TODO: Show alert / set state
+      }
+    );
   };
 
   getPartyWithGuestName = name => {
@@ -67,8 +70,6 @@ class RSVP extends Component {
    * Search for a party containing a guest with a matching name.
    */
   onNameFormSubmit = values => {
-    console.log("name form submit", values);
-
     const { name } = values;
     const foundParty = this.getPartyWithGuestName(name);
 
