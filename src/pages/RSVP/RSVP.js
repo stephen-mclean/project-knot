@@ -71,7 +71,8 @@ class RSVP extends Component {
     const { partyNotFoundAlert } = this.state;
     if (!foundParty && !partyNotFoundAlert) {
       const notFoundAlert = alerts.showError(
-        "We could not find your invite. Please check your spelling and try again."
+        "We could not find your invite. Please check your spelling and try again.",
+        { onClose: () => this.setState({ partyNotFoundAlert: null }) }
       );
       this.setState({ partyNotFoundAlert: notFoundAlert });
     } else if (foundParty && foundParty.hasResponded) {
