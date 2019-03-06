@@ -11,7 +11,12 @@ import { required } from "../../../form/validations";
 class SingleGuestForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired
+    onCancel: PropTypes.func.isRequired,
+    initialValues: PropTypes.object
+  };
+
+  static defaultProps = {
+    initialValues: {}
   };
 
   onGuestFormSubmit = values => {
@@ -20,15 +25,14 @@ class SingleGuestForm extends Component {
     reset();
   };
 
+  onGuestFormCancel = () => {
+    const { onCancel, reset } = this.props;
+    onCancel();
+    reset();
+  };
+
   render() {
-    const {
-      handleSubmit,
-      onCancel,
-      invalid,
-      submitting,
-      pristine,
-      isAttending
-    } = this.props;
+    const { handleSubmit, invalid, submitting, isAttending } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onGuestFormSubmit)}>
         <Field
@@ -65,13 +69,13 @@ class SingleGuestForm extends Component {
         />
 
         <ButtonGroup right>
-          <Button buttonType={TYPES.OUTLINE} onClick={onCancel}>
+          <Button buttonType={TYPES.OUTLINE} onClick={this.onGuestFormCancel}>
             Cancel
           </Button>
           <Button
             buttonStyle={STYLES.PRIMARY}
             type="submit"
-            disabled={invalid || submitting || pristine}
+            disabled={invalid || submitting}
           >
             Next
           </Button>
@@ -82,14 +86,17 @@ class SingleGuestForm extends Component {
 }
 
 SingleGuestForm = reduxForm({
-  form: "singleGuestForm"
+  form: "singleGuestForm",
+  enableReinitialize: true
 })(SingleGuestForm);
 
 const selector = formValueSelector("singleGuestForm");
-const mapStateToProps = state => {
+const mapStateToProps = (state, { initialValues }) => {
   const isAttending = selector(state, "isAttending");
+  console.log("map state", initialValues);
   return {
-    isAttending
+    isAttending,
+    initialValues
   };
 };
 

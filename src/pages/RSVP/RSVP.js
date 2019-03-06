@@ -50,6 +50,19 @@ class RSVP extends Component {
     });
   };
 
+  getPartyWithGuestName = name => {
+    const { allParties } = this.state;
+
+    const nameToFind = name.toLowerCase();
+    return allParties.find(party => {
+      return party.guests.find(guest => {
+        const guestsName = guest.name.toLowerCase();
+
+        return guestsName === nameToFind;
+      });
+    });
+  };
+
   /**
    * Search for a party containing a guest with a matching name.
    */
@@ -57,16 +70,7 @@ class RSVP extends Component {
     console.log("name form submit", values);
 
     const { name } = values;
-    const { allParties } = this.state;
-
-    const nameToFind = name.toLowerCase();
-    const foundParty = allParties.find(party => {
-      return party.guests.find(guest => {
-        const guestsName = guest.name.toLowerCase();
-
-        return guestsName === nameToFind;
-      });
-    });
+    const foundParty = this.getPartyWithGuestName(name);
 
     const { partyNotFoundAlert } = this.state;
     if (!foundParty && !partyNotFoundAlert) {
@@ -76,8 +80,16 @@ class RSVP extends Component {
       );
       this.setState({ partyNotFoundAlert: notFoundAlert });
     } else if (foundParty && foundParty.hasResponded) {
+      if (partyNotFoundAlert) {
+        alerts.close(partyNotFoundAlert);
+      }
+
       // Already RSVP'd, show confirmation
-      this.setState({ chosenParty: foundParty, showConfirmation: true });
+      this.setState({
+        chosenParty: foundParty,
+        showConfirmation: true,
+        partyNotFoundAlert: null
+      });
       alerts.showSuccess(
         "You have already responded. Please find your details below."
       );
@@ -121,11 +133,9 @@ class RSVP extends Component {
   };
 
   onUpdateGuests = updatedGuests => {
-    console.log("guests updated", updatedGuests);
-
-    const currentParty = this.state.chosenParty;
+    const { chosenParty } = this.state;
     const updatedParty = {
-      ...currentParty,
+      ...chosenParty,
       guests: updatedGuests,
       hasResponded: true
     };
@@ -136,8 +146,10 @@ class RSVP extends Component {
     partyRef.set(updatedParty, error => {
       if (error) {
         console.error(error);
+        alerts.showError(
+          "An error has occurred submitting your response. Please try again"
+        );
       } else {
-        console.log("PARTY UPDATED!!");
         this.setState({
           chosenParty: updatedParty,
           showConfirmation: true,
@@ -147,12 +159,18 @@ class RSVP extends Component {
     });
   };
 
+  onGuestsFormCancel = () => {
+    const { history } = this.props;
+    history.push(HOME.path);
+  };
+
   renderGuestsForm = () => {
     const { chosenParty } = this.state;
     return (
       <GuestsForm
         guests={chosenParty.guests}
         updateGuests={this.onUpdateGuests}
+        onCancel={this.onGuestsFormCancel}
       />
     );
   };

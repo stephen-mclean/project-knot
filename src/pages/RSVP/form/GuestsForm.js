@@ -19,7 +19,8 @@ const GuestNumberIndicator = styled(S1)`
 class GuestsForm extends Component {
   static propTypes = {
     guests: PropTypes.array.isRequired,
-    updateGuests: PropTypes.func.isRequired
+    updateGuests: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -35,6 +36,7 @@ class GuestsForm extends Component {
 
   updateGuestChoices = values => {
     const { currentGuestIdx, updatedGuests, numberOfGuests } = this.state;
+    const currentUpdatedGuests = [...updatedGuests];
     const { guests, updateGuests } = this.props;
     const currentGuest = guests[currentGuestIdx];
 
@@ -43,7 +45,14 @@ class GuestsForm extends Component {
       ...values
     };
 
-    const newUpdatedGuests = [...updatedGuests, updatedGuest];
+    const alreadyUpdatedIdx = currentUpdatedGuests.findIndex(
+      updated => updated.name === updatedGuest.name
+    );
+    if (alreadyUpdatedIdx > -1) {
+      currentUpdatedGuests.splice(alreadyUpdatedIdx, 1);
+    }
+
+    const newUpdatedGuests = [...currentUpdatedGuests, updatedGuest];
 
     if (currentGuestIdx === numberOfGuests - 1) {
       console.log("last guest, calling update");
@@ -59,15 +68,29 @@ class GuestsForm extends Component {
   };
 
   onGuestFormBackBtnClick = () => {
-    // If first guest, cancel, otherwise go to previous guest
-    console.log("on guest form cancel");
+    const { currentGuestIdx } = this.state;
+    const { onCancel } = this.props;
+
+    if (currentGuestIdx - 1 >= 0) {
+      this.setState(prevState => ({
+        currentGuestIdx: prevState.currentGuestIdx - 1
+      }));
+    } else {
+      onCancel();
+    }
   };
 
   renderGuestForm = () => {
+    const { currentGuestIdx, updatedGuests } = this.state;
+    let initialGuestValues = {};
+    if (updatedGuests.length > currentGuestIdx) {
+      initialGuestValues = updatedGuests[currentGuestIdx];
+    }
     return (
       <SingleGuestForm
         onSubmit={this.updateGuestChoices}
         onCancel={this.onGuestFormBackBtnClick}
+        initialValues={initialGuestValues}
       />
     );
   };
