@@ -80,6 +80,12 @@ class GuestsForm extends Component {
     }
   };
 
+  getGuestFormCancelBtnLabel = () => {
+    const { currentGuestIdx } = this.state;
+
+    return currentGuestIdx > 0 ? "Previous" : "Cancel";
+  };
+
   renderGuestForm = () => {
     const { currentGuestIdx, updatedGuests } = this.state;
     let initialGuestValues = {};
@@ -90,6 +96,7 @@ class GuestsForm extends Component {
       <SingleGuestForm
         onSubmit={this.updateGuestChoices}
         onCancel={this.onGuestFormBackBtnClick}
+        cancelBtnLabel={this.getGuestFormCancelBtnLabel}
         initialValues={initialGuestValues}
       />
     );

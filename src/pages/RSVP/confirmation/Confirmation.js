@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { H5, S1 } from "../../../components/Fonts/Fonts";
+import Button, { TYPES } from "../../../components/Button/Button";
+import { ButtonGroup } from "../../../components/ButtonGroup/ButtonGroup";
 import GuestDetails from "./GuestDetails";
 
 const HeadingContainer = styled.section`
@@ -15,7 +17,7 @@ const SubHeading = styled(S1)`
   color: ${props => props.theme.colors.foreground.tertiary};
 `;
 
-export default ({ guests }) => (
+export default ({ guests, goToHome }) => (
   <Fragment>
     <HeadingContainer>
       <MainHeading>You're all set!</MainHeading>
@@ -26,5 +28,11 @@ export default ({ guests }) => (
     {guests.map(guest => (
       <GuestDetails key={guest.name} guest={guest} />
     ))}
+
+    <ButtonGroup right>
+      <Button buttonType={TYPES.OUTLINE} onClick={goToHome}>
+        Back to home
+      </Button>
+    </ButtonGroup>
   </Fragment>
 );

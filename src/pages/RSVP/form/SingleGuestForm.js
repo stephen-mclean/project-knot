@@ -12,6 +12,7 @@ class SingleGuestForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    cancelBtnLabel: PropTypes.func.isRequired,
     initialValues: PropTypes.object
   };
 
@@ -32,7 +33,13 @@ class SingleGuestForm extends Component {
   };
 
   render() {
-    const { handleSubmit, invalid, submitting, isAttending } = this.props;
+    const {
+      handleSubmit,
+      invalid,
+      submitting,
+      isAttending,
+      cancelBtnLabel
+    } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onGuestFormSubmit)}>
         <Field
@@ -70,7 +77,7 @@ class SingleGuestForm extends Component {
 
         <ButtonGroup right>
           <Button buttonType={TYPES.OUTLINE} onClick={this.onGuestFormCancel}>
-            Cancel
+            {cancelBtnLabel()}
           </Button>
           <Button
             buttonStyle={STYLES.PRIMARY}

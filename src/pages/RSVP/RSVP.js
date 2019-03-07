@@ -26,6 +26,11 @@ class RSVP extends Component {
     this.loadParties();
   }
 
+  goToHome = () => {
+    const { history } = this.props;
+    history.push(HOME.path);
+  };
+
   loadParties = () => {
     this.setState({ isLoading: true });
 
@@ -94,7 +99,7 @@ class RSVP extends Component {
       alerts.showSuccess(
         "You have already responded. Please find your details below."
       );
-    } else {
+    } else if (foundParty) {
       if (partyNotFoundAlert) {
         alerts.close(partyNotFoundAlert);
       }
@@ -102,17 +107,9 @@ class RSVP extends Component {
     }
   };
 
-  onNameFormCancel = () => {
-    const { history } = this.props;
-    history.push(HOME.path);
-  };
-
   renderNameForm = () => {
     return (
-      <NameForm
-        onSubmit={this.onNameFormSubmit}
-        onCancel={this.onNameFormCancel}
-      />
+      <NameForm onSubmit={this.onNameFormSubmit} onCancel={this.goToHome} />
     );
   };
 
@@ -160,25 +157,22 @@ class RSVP extends Component {
     });
   };
 
-  onGuestsFormCancel = () => {
-    const { history } = this.props;
-    history.push(HOME.path);
-  };
-
   renderGuestsForm = () => {
     const { chosenParty } = this.state;
     return (
       <GuestsForm
         guests={chosenParty.guests}
         updateGuests={this.onUpdateGuests}
-        onCancel={this.onGuestsFormCancel}
+        onCancel={this.goToHome}
       />
     );
   };
 
   renderConfirmationScreen() {
     const { chosenParty } = this.state;
-    return <Confirmation guests={chosenParty.guests} />;
+    return (
+      <Confirmation guests={chosenParty.guests} goToHome={this.goToHome} />
+    );
   }
 
   render() {
