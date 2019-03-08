@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import styled from "styled-components";
 import { H2 } from "../../components/Fonts/Secondary";
+import { S1 } from "../../components/Fonts/Fonts";
 import Button, {
   TYPES as ButtonTypes,
   STYLES as ButtonStyles
@@ -15,6 +16,12 @@ const HomeContainer = styled.section`
 `;
 
 const MainTitle = styled(H2)`
+  margin-bottom: 0.5rem;
+  text-align: center;
+`;
+
+const SubTitle = styled(S1)`
+  color: ${props => props.theme.colors.foreground.secondary};
   margin-bottom: 1rem;
   text-align: center;
 `;
@@ -39,6 +46,7 @@ class Home extends PureComponent {
     return (
       <HomeContainer>
         <MainTitle>Catriona & Darren</MainTitle>
+        <SubTitle>Info text here. Wording TBC.</SubTitle>
         <VerticalButtonGroup center>
           <Button buttonStyle={ButtonStyles.PRIMARY} onClick={this.goToRSVP}>
             RSVP
@@ -47,13 +55,13 @@ class Home extends PureComponent {
             buttonType={ButtonTypes.OUTLINE}
             onClick={this.goToWeddingDay}
           >
-            Wedding Day Info
+            Wedding Day
           </Button>
           <Button
             buttonType={ButtonTypes.OUTLINE}
             onClick={this.goToAfterParty}
           >
-            After Party Info
+            After Party
           </Button>
         </VerticalButtonGroup>
       </HomeContainer>

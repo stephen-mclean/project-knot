@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from "react";
+import styled from "styled-components";
 import { AlertContainer, alerts } from "react-very-simple-alerts";
 import AlertTemplate from "../../components/Alert/DefaultAlertTemplate";
 import AlertCloseButton from "../../components/Alert/DefaultAlertCloseBtn";
@@ -10,6 +11,13 @@ import GuestsForm from "./form/GuestsForm";
 import Confirmation from "./confirmation/Confirmation";
 import { HOME } from "../../routes/routes";
 
+const RetryContent = styled.span`
+  text-decoration: underline;
+`;
+const RetryButton = ({ close }) => (
+  <RetryContent onClick={close}>Retry</RetryContent>
+);
+
 class RSVP extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +26,8 @@ class RSVP extends Component {
       chosenParty: null,
       allParties: null,
       showConfirmation: false,
-      isLoading: false
+      isLoading: false,
+      loadingPartiesErrorId: null
     };
   }
 
@@ -32,7 +41,13 @@ class RSVP extends Component {
   };
 
   loadParties = () => {
-    this.setState({ isLoading: true });
+    const { loadingPartiesErrorId } = this.state;
+
+    if (loadingPartiesErrorId) {
+      alerts.close(loadingPartiesErrorId);
+    }
+
+    this.setState({ isLoading: true, loadingPartiesErrorId: null });
 
     const partiesRef = dbRef.ref("parties");
     partiesRef.once(
@@ -52,8 +67,22 @@ class RSVP extends Component {
         });
       },
       error => {
-        console.error(error);
-        // TODO: Show alert / set state
+        console.error("Could not retrieve parties", error);
+        const loadingPartiesErrorId = alerts.showError(
+          "An error has occurred. Please try again.",
+          {
+            closeButton: RetryButton,
+            onClose: () => {
+              this.setState({ loadingPartiesErrorId: null }, () =>
+                this.loadParties()
+              );
+            }
+          }
+        );
+        this.setState({
+          loadingPartiesErrorId,
+          isLoading: false
+        });
       }
     );
   };
@@ -114,9 +143,9 @@ class RSVP extends Component {
   };
 
   shouldRenderNameForm = () => {
-    const { chosenParty, isLoading } = this.state;
+    const { allParties, chosenParty, isLoading } = this.state;
 
-    return !chosenParty && !isLoading;
+    return allParties && allParties.length && !chosenParty && !isLoading;
   };
 
   shouldRenderGuestsForm = () => {

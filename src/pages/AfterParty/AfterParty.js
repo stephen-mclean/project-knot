@@ -24,14 +24,14 @@ export default () => (
   <PageWithNav>
     <Fragment>
       <HeadingContainer>
-        <MainHeader>After Party</MainHeader>
-        <VenueInfo>Arnolds Hotel 12/10/19</VenueInfo>
+        <MainHeader>12th October 2019</MainHeader>
+        <VenueInfo>Arnolds Hotel</VenueInfo>
       </HeadingContainer>
       <Description>Description here</Description>
 
-      <Accordion title="Lodging" content="Lodging info here" />
-      <Accordion title="Transport" content="Transport info here" />
-      <Accordion title="Activities" content="Activities info here" />
+      <Accordion title="Accommodation" content="Info here" />
+      <Accordion title="Directions" content="Info here" />
+      <Accordion title="Useful Numbers" content="Info here" />
     </Fragment>
   </PageWithNav>
 );

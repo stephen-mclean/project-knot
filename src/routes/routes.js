@@ -15,16 +15,15 @@ const RSVP_ROUTE = {
   component: RSVP
 };
 
-const INFORMATION_TITLE = "Information";
 const WEDDING_DAY = {
   path: "/wedding",
-  title: INFORMATION_TITLE,
+  title: "Wedding Day",
   component: WeddingDay
 };
 
 const AFTER_PARTY = {
   path: "/after",
-  title: INFORMATION_TITLE,
+  title: "After Party",
   component: AfterParty
 };
 
