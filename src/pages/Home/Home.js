@@ -46,7 +46,19 @@ class Home extends PureComponent {
     return (
       <HomeContainer>
         <MainTitle>Catriona & Darren</MainTitle>
-        <SubTitle>Info text here. Wording TBC.</SubTitle>
+        <SubTitle>
+          Welcome to our wedding website. We’ve created this website as a
+          helpful resource for all of the need-to-know details in the lead up to
+          our big day. Here you’ll find the schedule for the day, venue
+          directions, along with accommodation and transport options.
+        </SubTitle>
+        <SubTitle>
+          Don’t forget to RSVP and let us know about any dietary preferences
+          too.
+        </SubTitle>
+        <SubTitle>
+          We are so looking forward to celebrating with you all!
+        </SubTitle>
         <VerticalButtonGroup center>
           <Button buttonStyle={ButtonStyles.PRIMARY} onClick={this.goToRSVP}>
             RSVP

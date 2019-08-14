@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { B1, B2 } from "../Fonts/Fonts";
+import { B1 } from "../Fonts/Fonts";
 
 const Container = styled.div`
   border: ${props => `1px solid ${props.theme.colors.foreground.quaternary}`};
@@ -20,14 +20,9 @@ const ContentContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const Content = styled(B2)`
-  color: ${props => props.theme.colors.foreground.secondary};
-`;
-
 class Accordion extends PureComponent {
   static propTypes = {
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired
   };
 
   state = { isExpanded: false };
@@ -40,7 +35,7 @@ class Accordion extends PureComponent {
 
   render() {
     const { isExpanded } = this.state;
-    const { title, content } = this.props;
+    const { title, children } = this.props;
     const icon = isExpanded ? "chevron-down" : "chevron-right";
     return (
       <Container onClick={this.toggleIsExpanded}>
@@ -49,11 +44,7 @@ class Accordion extends PureComponent {
           <FontAwesomeIcon icon={icon} />
         </TitleContainer>
 
-        {isExpanded && (
-          <ContentContainer>
-            <Content>{content}</Content>
-          </ContentContainer>
-        )}
+        {isExpanded && <ContentContainer>{children}</ContentContainer>}
       </Container>
     );
   }
