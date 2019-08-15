@@ -44,8 +44,11 @@ class SingleGuestForm extends Component {
       <form onSubmit={handleSubmit(this.onGuestFormSubmit)}>
         <Field
           name="isAttending"
-          label="Is attending wedding day?"
-          options={["Yes", "No"]}
+          label="Will you be joining us for our wedding ceremony?"
+          options={[
+            { label: "Wouldn’t miss it for the World!", value: "Yes" },
+            { label: "Sorry, I will have to miss the fun", value: "No" }
+          ]}
           validate={required}
           component={RadioGroup}
         />
@@ -54,7 +57,10 @@ class SingleGuestForm extends Component {
           <Field
             name="meal"
             label="Meal Choice"
-            options={["Lamb", "Salmon"]}
+            options={[
+              { label: "Beef", value: "Beef" },
+              { label: "Salmon", value: "Salmon" }
+            ]}
             component={RadioGroup}
             validate={required}
           />
@@ -62,8 +68,11 @@ class SingleGuestForm extends Component {
 
         <Field
           name="isAttendingAfterParty"
-          label="Is attending after party?"
-          options={["Yes", "No"]}
+          label="Will you be joining us for the after party?"
+          options={[
+            { label: "Let the good times roll!", value: "Yes" },
+            { label: "Sorry, the show must go on without me", value: "No" }
+          ]}
           validate={required}
           component={RadioGroup}
         />

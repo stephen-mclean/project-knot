@@ -8,6 +8,7 @@ import PageWithNav from "../helpers/PageWithNav";
 import { dbRef } from "../../firebase";
 import NameForm from "./form/NameForm";
 import GuestsForm from "./form/GuestsForm";
+import MultiMatchForm from "./form/MultiMatchForm";
 import Confirmation from "./confirmation/Confirmation";
 import { HOME } from "../../routes/routes";
 
@@ -24,6 +25,7 @@ class RSVP extends Component {
 
     this.state = {
       chosenParty: null,
+      potentialParties: null,
       allParties: null,
       showConfirmation: false,
       isLoading: false,
@@ -91,7 +93,7 @@ class RSVP extends Component {
     const { allParties } = this.state;
 
     const nameToFind = name.toLowerCase();
-    return allParties.find(party => {
+    return allParties.filter(party => {
       return party.guests.find(guest => {
         const guestsName = guest.name.toLowerCase();
 
@@ -105,7 +107,14 @@ class RSVP extends Component {
    */
   onNameFormSubmit = values => {
     const { name } = values;
-    const foundParty = this.getPartyWithGuestName(name);
+    const potentialParties = this.getPartyWithGuestName(name);
+    let foundParty;
+    if (potentialParties.length === 1) {
+      foundParty = potentialParties[0];
+    } else if (potentialParties.length > 1) {
+      this.setState({ potentialParties });
+      return;
+    }
 
     const { partyNotFoundAlert } = this.state;
     if (!foundParty && !partyNotFoundAlert) {
@@ -143,15 +152,27 @@ class RSVP extends Component {
   };
 
   shouldRenderNameForm = () => {
-    const { allParties, chosenParty, isLoading } = this.state;
+    const { allParties, chosenParty, potentialParties, isLoading } = this.state;
 
-    return allParties && allParties.length && !chosenParty && !isLoading;
+    return (
+      allParties &&
+      allParties.length &&
+      !chosenParty &&
+      !potentialParties &&
+      !isLoading
+    );
   };
 
   shouldRenderGuestsForm = () => {
     const { chosenParty, showConfirmation, isLoading } = this.state;
 
     return !!chosenParty && !showConfirmation && !isLoading;
+  };
+
+  shouldRenderMultiMatchForm = () => {
+    const { chosenParty, potentialParties } = this.state;
+
+    return !chosenParty && potentialParties && potentialParties.length;
   };
 
   shouldRenderConfirmation = () => {
@@ -204,6 +225,21 @@ class RSVP extends Component {
     );
   }
 
+  onChooseSingleParty = party => {
+    this.setState({ chosenParty: party, potentialParties: null });
+  };
+
+  renderMultiMatchForm = () => {
+    const { potentialParties } = this.state;
+
+    return (
+      <MultiMatchForm
+        potentialParties={potentialParties}
+        onChooseParty={this.onChooseSingleParty}
+      />
+    );
+  };
+
   render() {
     const { isLoading } = this.state;
     return (
@@ -217,6 +253,7 @@ class RSVP extends Component {
           {this.shouldRenderNameForm() && this.renderNameForm()}
           {this.shouldRenderGuestsForm() && this.renderGuestsForm()}
           {this.shouldRenderConfirmation() && this.renderConfirmationScreen()}
+          {this.shouldRenderMultiMatchForm() && this.renderMultiMatchForm()}
         </Fragment>
       </PageWithNav>
     );

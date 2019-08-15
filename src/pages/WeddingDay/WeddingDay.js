@@ -34,7 +34,7 @@ export default () => (
     <Fragment>
       <HeadingContainer>
         <MainHeader>11th October 2019</MainHeader>
-        <VenueInfo>Rock Hill House</VenueInfo>
+        <VenueInfo>Rockhill House</VenueInfo>
       </HeadingContainer>
       <Description>
         Our wedding ceremony will take place at 2pm in The Gallery at Rockhill

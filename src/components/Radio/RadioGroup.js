@@ -8,11 +8,10 @@ const Container = styled.div`
 `;
 
 const RadioContainer = styled.div`
-  display: inline-block;
-  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 
   :last-child {
-    margin-right: 0;
+    margin-bottom: 0;
   }
 `;
 
@@ -24,11 +23,11 @@ export default ({ label, options, input }) => (
   <Container>
     {label && <Label>{label}</Label>}
     {options.map(option => (
-      <RadioContainer key={option}>
+      <RadioContainer key={option.value}>
         <Radio
-          label={option}
-          value={option}
-          checked={input.value === option}
+          label={option.label}
+          value={option.value}
+          checked={input.value === option.value}
           onChange={input.onChange}
         />
       </RadioContainer>
