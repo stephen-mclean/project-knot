@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { B1 } from "../Fonts/Fonts";
 
 const Container = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const Label = styled(B1)`
