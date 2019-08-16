@@ -12,13 +12,15 @@ const MainHeader = styled(H5)`
 `;
 
 const VenueInfo = styled(H6)`
+  margin-bottom: 1rem;
   color: ${props => props.theme.colors.foreground.tertiary};
 `;
 
 const SectionTitle = styled(H6)`
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   text-align: center;
+  color: ${props => props.theme.colors.background.quintenary};
 `;
 
 const P = styled(B2)`
@@ -46,11 +48,11 @@ export default () => (
       <HeadingContainer>
         <MainHeader>11th October 2019</MainHeader>
         <VenueInfo>Rockhill House</VenueInfo>
+        <B2>
+          Our wedding ceremony will take place at 2pm in The Gallery at Rockhill
+          House and the evening reception will follow in Rockhill House.
+        </B2>
       </HeadingContainer>
-      <B2>
-        Our wedding ceremony will take place at 2pm in The Gallery at Rockhill
-        House and the evening reception will follow in Rockhill House.
-      </B2>
 
       <SectionTitle>Accomodation</SectionTitle>
       <P>
@@ -62,9 +64,12 @@ export default () => (
 
       <P>
         Alternatively, we have secured special rates in the following hotels,
-        both of which are 5-8mins drive from Rockhill House. If making a
-        reservation at either hotel please quote “Mc Hugh/Kerr wedding” to avail
-        of their special rate.
+        both of which are 5-8mins drive from Rockhill House.
+      </P>
+
+      <P>
+        If making a reservation at either hotel please quote “Mc Hugh/Kerr
+        wedding” to avail of their special rate.
       </P>
 
       <P>

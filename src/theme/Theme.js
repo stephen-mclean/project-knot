@@ -5,7 +5,8 @@ export default {
         default: "#FBFEF9",
         secondary: "#B4CCA3",
         tertiary: "#92B27D",
-        quaternary: "#6B994D"
+        quaternary: "#6B994D",
+        quintenary: "#537d36"
       },
       foreground: {
         default: "#071013",
