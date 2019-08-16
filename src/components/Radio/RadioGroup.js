@@ -4,7 +4,7 @@ import { B1 } from "../Fonts/Fonts";
 import Radio from "./Radio";
 
 const Container = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const RadioContainer = styled.div`

@@ -54,16 +54,25 @@ class SingleGuestForm extends Component {
         />
 
         {isAttending && isAttending === "Yes" && (
-          <Field
-            name="meal"
-            label="Meal Choice"
-            options={[
-              { label: "Beef", value: "Beef" },
-              { label: "Salmon", value: "Salmon" }
-            ]}
-            component={RadioGroup}
-            validate={required}
-          />
+          <div>
+            <Field
+              name="meal"
+              label="Please select your main course"
+              options={[
+                { label: "Beef", value: "Beef" },
+                { label: "Salmon", value: "Salmon" }
+              ]}
+              component={RadioGroup}
+              validate={required}
+            />
+            <Field
+              name="dietaryRequirements"
+              label="Please advise of any dietary requirements or if you would prefer
+              a vegetarian option"
+              rows="3"
+              component={TextArea}
+            />
+          </div>
         )}
 
         <Field
@@ -75,13 +84,6 @@ class SingleGuestForm extends Component {
           ]}
           validate={required}
           component={RadioGroup}
-        />
-
-        <Field
-          name="dietaryRequirements"
-          label="Dietary Requirements"
-          rows="3"
-          component={TextArea}
         />
 
         <ButtonGroup right>

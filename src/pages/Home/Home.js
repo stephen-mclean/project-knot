@@ -6,13 +6,22 @@ import Button, {
   TYPES as ButtonTypes,
   STYLES as ButtonStyles
 } from "../../components/Button/Button";
+import PageContainer from "../../components/PageContainer/PageContainer";
 import { VerticalButtonGroup } from "../../components/ButtonGroup/ButtonGroup";
 import { RSVP_ROUTE, WEDDING_DAY, AFTER_PARTY } from "../../routes/routes";
+import banner from "./Banner.jpg";
 
-const HomeContainer = styled.section`
-  margin-top: 9rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+const Banner = styled.img`
+  margin-bottom: 1rem;
+  width: 100%;
+`;
+
+const HomeContainer = styled(PageContainer)`
+  margin-top: 4rem;
+
+  @media (min-width: 768px) {
+    margin-top: 9rem;
+  }
 `;
 
 const MainTitle = styled(H2)`
@@ -45,6 +54,7 @@ class Home extends PureComponent {
   render() {
     return (
       <HomeContainer>
+        <Banner src={banner} alt="Banner" />
         <MainTitle>Catriona & Darren</MainTitle>
         <SubTitle>
           Welcome to our wedding website. We’ve created this website as a
@@ -60,9 +70,6 @@ class Home extends PureComponent {
           We are so looking forward to celebrating with you all!
         </SubTitle>
         <VerticalButtonGroup center>
-          <Button buttonStyle={ButtonStyles.PRIMARY} onClick={this.goToRSVP}>
-            RSVP
-          </Button>
           <Button
             buttonType={ButtonTypes.OUTLINE}
             onClick={this.goToWeddingDay}
@@ -74,6 +81,9 @@ class Home extends PureComponent {
             onClick={this.goToAfterParty}
           >
             After Party
+          </Button>
+          <Button buttonStyle={ButtonStyles.PRIMARY} onClick={this.goToRSVP}>
+            RSVP
           </Button>
         </VerticalButtonGroup>
       </HomeContainer>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export default styled.nav`
-  height: 4rem;
+  height: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;
