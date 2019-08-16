@@ -92,10 +92,10 @@ class RSVP extends Component {
   getPartyWithGuestName = name => {
     const { allParties } = this.state;
 
-    const nameToFind = name.toLowerCase();
+    const nameToFind = name.toLowerCase().replace(/ /g, "");
     return allParties.filter(party => {
       return party.guests.find(guest => {
-        const guestsName = guest.name.toLowerCase();
+        const guestsName = guest.name.toLowerCase().replace(/ /g, "");
 
         return guestsName === nameToFind;
       });
