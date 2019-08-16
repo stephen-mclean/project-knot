@@ -13,9 +13,11 @@ const MultiMatchForm = ({ potentialParties, onChooseParty }) => {
   const [chosenParty, setChosenParty] = useState(null);
 
   const getPartyDisplayValue = party => {
-    return party.guests.reduce((result, guest) => {
+    const guestNames = party.guests.reduce((result, guest) => {
       return result === "" ? guest.name : `${result}, ${guest.name}`;
     }, "");
+
+    return party.location ? `${guestNames} (${party.location})` : guestNames;
   };
 
   const options = potentialParties.map(party => ({
