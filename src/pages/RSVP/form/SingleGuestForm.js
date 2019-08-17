@@ -71,7 +71,7 @@ class SingleGuestForm extends Component {
                   validate={required}
                 />
 
-                {isBringingPlusOne && (
+                {isBringingPlusOne && isBringingPlusOne === "Yes" && (
                   <Field
                     name="guestName"
                     label="Please enter your guests full name"
