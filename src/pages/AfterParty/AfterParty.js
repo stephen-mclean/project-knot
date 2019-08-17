@@ -9,11 +9,13 @@ const HeadingContainer = styled.section`
 
 const MainHeader = styled(H5)`
   margin-bottom: 0.25rem;
+  text-align: center;
 `;
 
 const VenueInfo = styled(H6)`
   margin-bottom: 1rem;
-  color: ${props => props.theme.colors.foreground.tertiary};
+  text-align: center;
+  color: ${props => props.theme.colors.background.quintenary};
 `;
 
 const SectionTitle = styled(H6)`
