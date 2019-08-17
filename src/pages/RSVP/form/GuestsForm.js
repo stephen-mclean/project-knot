@@ -88,10 +88,11 @@ class GuestsForm extends Component {
 
   renderGuestForm = () => {
     const { currentGuestIdx, updatedGuests } = this.state;
-    let initialGuestValues = {};
-    if (updatedGuests.length > currentGuestIdx) {
-      initialGuestValues = updatedGuests[currentGuestIdx];
-    }
+    const { guests } = this.props;
+
+    const initialGuestValues =
+      updatedGuests[currentGuestIdx] || guests[currentGuestIdx] || {};
+
     return (
       <SingleGuestForm
         onSubmit={this.updateGuestChoices}

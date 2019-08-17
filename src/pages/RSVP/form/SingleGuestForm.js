@@ -4,6 +4,7 @@ import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import RadioGroup from "../../../components/Radio/RadioGroup";
 import TextArea from "../../../components/TextArea/TextArea";
+import Input from "../../../components/Input/Input";
 import Button, { STYLES, TYPES } from "../../../components/Button/Button";
 import { ButtonGroup } from "../../../components/ButtonGroup/ButtonGroup";
 import { required } from "../../../form/validations";
@@ -38,7 +39,9 @@ class SingleGuestForm extends Component {
       invalid,
       submitting,
       isAttending,
-      cancelBtnLabel
+      cancelBtnLabel,
+      initialValues: { plusOne },
+      isBringingPlusOne
     } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onGuestFormSubmit)}>
@@ -55,6 +58,29 @@ class SingleGuestForm extends Component {
 
         {isAttending && isAttending === "Yes" && (
           <div>
+            {plusOne && (
+              <div>
+                <Field
+                  name="isBringingPlusOne"
+                  label="Will you be bringing a guest?"
+                  options={[
+                    { label: "Yes", value: "Yes" },
+                    { label: "No", value: "No" }
+                  ]}
+                  component={RadioGroup}
+                  validate={required}
+                />
+
+                {isBringingPlusOne && (
+                  <Field
+                    name="guestName"
+                    label="Please enter your guests full name"
+                    component={Input}
+                    validate={required}
+                  />
+                )}
+              </div>
+            )}
             <Field
               name="meal"
               label="Please select your main course"
@@ -111,9 +137,11 @@ SingleGuestForm = reduxForm({
 const selector = formValueSelector("singleGuestForm");
 const mapStateToProps = (state, { initialValues }) => {
   const isAttending = selector(state, "isAttending");
-  console.log("map state", initialValues);
+  const isBringingPlusOne = selector(state, "isBringingPlusOne");
+
   return {
     isAttending,
+    isBringingPlusOne,
     initialValues
   };
 };
