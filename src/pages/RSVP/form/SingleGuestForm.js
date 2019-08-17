@@ -85,8 +85,16 @@ class SingleGuestForm extends Component {
               name="meal"
               label="Please select your main course"
               options={[
-                { label: "Beef", value: "Beef" },
-                { label: "Salmon", value: "Salmon" }
+                {
+                  label:
+                    "8oz Roasted Sirloin of Prime Irish Beef, Celeriac & Horseradish, Red Wine & Roasted Onion Gravy",
+                  value: "Beef"
+                },
+                {
+                  label:
+                    "Oven Baked Pave of Salmon, Pinot Grigio Leeks, Saffron & Prawn Veloute",
+                  value: "Salmon"
+                }
               ]}
               component={RadioGroup}
               validate={required}
