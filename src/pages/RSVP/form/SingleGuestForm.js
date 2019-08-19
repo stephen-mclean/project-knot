@@ -64,6 +64,14 @@ class SingleGuestForm extends Component {
           component={RadioGroup}
         />
 
+        {isChild && (
+          <ChildrensMenuDesc>
+            For any of our smaller guests they can decide on the day whether to
+            have half portion of the main meal or a children’s menu will also be
+            available
+          </ChildrensMenuDesc>
+        )}
+
         {isAttending && isAttending === "Yes" && !isChild && (
           <div>
             <Field
@@ -156,14 +164,6 @@ class SingleGuestForm extends Component {
           validate={required}
           component={RadioGroup}
         />
-
-        {isChild && (
-          <ChildrensMenuDesc>
-            For any of our smaller guests they can decide on the day whether to
-            have half portion of the main meal or a children’s menu will also be
-            available
-          </ChildrensMenuDesc>
-        )}
 
         <ButtonGroup right>
           <Button buttonType={TYPES.OUTLINE} onClick={this.onGuestFormCancel}>
