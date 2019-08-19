@@ -8,6 +8,7 @@ import Button, {
 } from "../../components/Button/Button";
 import PageContainer from "../../components/PageContainer/PageContainer";
 import { VerticalButtonGroup } from "../../components/ButtonGroup/ButtonGroup";
+import Countdown from "../../components/Countdown/Countdown";
 import { RSVP_ROUTE, WEDDING_DAY, AFTER_PARTY } from "../../routes/routes";
 import banner from "./Banner.jpg";
 
@@ -35,6 +36,15 @@ const SubTitle = styled(S1)`
   text-align: center;
 `;
 
+const DaysLeft = styled(Countdown)`
+  text-align: center;
+  margin-bottom: 1rem;
+  color: ${props => props.theme.colors.foreground.secondary};
+`;
+
+const WEDDING_DATE = new Date(2019, 9, 11);
+const TODAY = new Date();
+
 class Home extends PureComponent {
   goToRSVP = () => {
     const { history } = this.props;
@@ -56,6 +66,7 @@ class Home extends PureComponent {
       <HomeContainer>
         <Banner src={banner} alt="Banner" />
         <MainTitle>Catriona & Darren</MainTitle>
+        <DaysLeft fromDate={TODAY} toDate={WEDDING_DATE} />
         <SubTitle>
           Welcome to our wedding website. We’ve created this website as a
           helpful resource for all of the need-to-know details in the lead up to
