@@ -58,8 +58,8 @@ class RSVP extends Component {
         const parties = [];
         snapshot.forEach(party => {
           parties.push({
-            id: party.key,
-            ...party.val()
+            ...party.val(),
+            id: party.key
           });
         });
 
