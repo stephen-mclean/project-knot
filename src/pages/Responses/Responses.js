@@ -48,7 +48,7 @@ const Responses = () => {
         console.error("Could not retrieve parties", error);
       }
     );
-  });
+  }, []);
 
   return (
     <Fragment>
