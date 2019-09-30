@@ -67,6 +67,7 @@ const Responses = () => {
               <th>Plus One Name</th>
               <th>Plus One Meal</th>
               <th>Attending After Party</th>
+              <th>Dietary Requirements</th>
             </thead>
             <tbody>
               {allGuests.map(guest => (
@@ -78,6 +79,7 @@ const Responses = () => {
                   <TD>{guest.guestName || "-"}</TD>
                   <TD>{guest.guestMeal || "-"}</TD>
                   <TD>{guest.isAttendingAfterParty || "-"}</TD>
+                  <TD>{guest.dietaryRequirements || "-"}</TD>
                 </tr>
               ))}
             </tbody>
