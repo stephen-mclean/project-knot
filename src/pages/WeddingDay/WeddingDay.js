@@ -100,8 +100,18 @@ export default () => (
       <SectionTitle>Transport</SectionTitle>
       <P>
         A bus will be available to take guests from Rockhill House to The
-        Radisson or Station House Hotel between 1-2am. For any guests that would
-        like to depart earlier in the evening local taxis will be available.
+        Radisson or Station House Hotel at 2:15am.
+      </P>
+
+      <P>
+        The bus will continue on to Creeslough and Dunfanaghy (charge of €10 per
+        person). If you would like to avail of the bus to Creeslough or
+        Dunfanghy please advise Catriona or Darren as numbers are limited.
+      </P>
+
+      <P>
+        For any guests that would like to depart earlier in the evening local
+        taxis will be available.
       </P>
 
       <P>Letterkenny Cabs 074 9127000</P>
